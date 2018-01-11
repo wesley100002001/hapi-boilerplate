@@ -2,6 +2,7 @@
 
 const Hapi = require('hapi');
 const route = require('./api/helloworld/routes/getHelloworld');
+const test = require('./api/helloworld/routes/test');
 
 const server = new Hapi.Server();
 
@@ -17,10 +18,17 @@ server.register(
     require('inert'),
     require('lout')
   ], (err) => {
-    
+    server.views({
+      engines: {
+        html: require('handlebars')
+      },
+      relativeTo: __dirname,
+      path: 'views'
+  });
 });
 
 server.route(route);
+server.route(test);
 
 server.start((err) => {
   if (err) {
