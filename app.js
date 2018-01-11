@@ -1,8 +1,11 @@
-'use strict';
+import Hapi from 'hapi'
+import hapiAuthJwt from 'hapi-auth-jwt'
+import vision from 'vision'
+import inert from 'inert'
+import lout from 'lout'
 
-const Hapi = require('hapi');
-const route = require('./api/helloworld/routes/getHelloworld');
-const test = require('./api/helloworld/routes/test');
+import route from './api/helloworld/routes/getHelloworld'
+import test from './api/helloworld/routes/test'
 
 const server = new Hapi.Server();
 
@@ -13,10 +16,10 @@ server.connection({
 
 server.register(
   [
-    require('hapi-auth-jwt'),
-    require('vision'),
-    require('inert'),
-    require('lout')
+    hapiAuthJwt,
+    vision,
+    inert,
+    lout
   ], (err) => {
     server.views({
       engines: {
